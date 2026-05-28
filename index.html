@@ -664,6 +664,21 @@ body::after{
   pointer-events:none;
   transition:opacity 0s;
 }
+/* ── Boot instruction overlay ── */
+.boot-hint{
+  position:absolute;bottom:22%;left:50%;transform:translateX(-50%);
+  z-index:30;pointer-events:none;
+  text-align:center;
+  font-family:"Courier New",monospace;
+  font-size:clamp(7px,1.2vw,13px);
+  line-height:1.9;
+  color:#1aff6e;
+  text-shadow:0 0 8px #1aff6e,0 0 20px rgba(26,255,110,.6);
+  letter-spacing:.08em;
+  white-space:nowrap;
+}
+.boot-hint.hidden{display:none}
+
 /* Subtle CRT glass reflection when off */
 .screen-off::after{
   content:"";position:absolute;inset:0;
@@ -1131,6 +1146,11 @@ body::after{
         <div class="screen-off" id="screenOff"></div>
         <div class="crt-flash" id="crtFlash"></div>
         <!-- iframe injected by JS after boot -->
+        <!-- Boot instruction -->
+        <div class="boot-hint" id="bootHint">
+          ▶ HIT THE GREEN START BUTTON<br>
+          THEN TAP THE SCREEN
+        </div>
       </div>
       <div class="mon-base"></div>
     </div>
@@ -1181,6 +1201,7 @@ body::after{
       iframe.src = 'https://ustymukhman.github.io/WebDOOM/public/';
       iframe.allow = 'autoplay; fullscreen; gamepad; keyboard-map';
       screen.appendChild(iframe);
+      document.getElementById('bootHint').classList.add('hidden');
     }, 220);
   });
 })();
